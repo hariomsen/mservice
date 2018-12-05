@@ -2,7 +2,22 @@
 'use strict'
 const repository = (db) => {
   const collection = db.collection('movies')
-
+  const getAllMovies = () => {
+    return new Promise((resolve, reject) => {
+      const movies = []
+      const cursor = collection.find({})
+      const addMovie = (movie) => {
+        movies.push(movie)
+      }
+      const sendMovies = (err) => {
+        if (err) {
+          reject(new Error('An error occured fetching all movies, err:' + err))
+        }
+        resolve(movies)
+      }
+      cursor.forEach(addMovie, sendMovies)
+    })
+  }
   const getMoviePremiers = () => {
     return new Promise((resolve, reject) => {
       const movies = []

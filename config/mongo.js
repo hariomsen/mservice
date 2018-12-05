@@ -10,12 +10,13 @@ const getMongoURL = (options) => {
 const connect = (options, mediator) => {
   mediator.once('boot.ready', () => {
     MongoClient.connect(
-      getMongoURL(options), {
-        db: options.dbParameters(),
-        server: options.serverParameters(),
-      }, (err, db) => {
+      'mongodb://localhost:27017/movies', {}, (err, db) => {
         if (err) {
           mediator.emit('db.error', err)
+        }
+        else
+        {
+          mediator.emit('db.ready', db)
         }
 
         // db.admin().authenticate(options.user, options.pass, (err, result) => {

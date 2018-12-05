@@ -27,7 +27,9 @@ const start = (options) => {
     movieAPI(app, options)
     
     // finally we start the server, and return the newly created server 
-    const server = app.listen(options.port, () => resolve(server))
+    const server = app.listen(options.port, () => {
+      console.log("server started")
+    resolve(server)})
   })
 }
 
